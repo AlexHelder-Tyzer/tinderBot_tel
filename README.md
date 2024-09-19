@@ -1,5 +1,4 @@
-# Foro Hub (Proyecto Backend)
-
+# Tinder Bot en Telegram (JAVA)
 ## Descripción
 En este emocionante maraton Java de llamado Tinder Bot, en el vamos a crear un Bot de Telegram para generar contenido para la aplicación de Tinder, conectado con Chat GPT, (CodeGym)
 
