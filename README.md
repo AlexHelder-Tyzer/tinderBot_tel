@@ -33,15 +33,18 @@ Dependencias para agregar al crear el proyecto:
     public static final String OPEN_AI_TOKEN = "TOKEN-CHAT-GPT"; //TODO: añadir el token de ChatGPT entre comillas
 
     ```
-    
+
 - Test profile para Tinder (/profile)
+
 ![profile](https://github.com/user-attachments/assets/4057b492-3f19-4ae8-9554-be9108bc479d)
 
 - Test de Opener para Tinder (/opener)
+
 ![image_opener](https://github.com/user-attachments/assets/2048bc3f-d860-42da-b133-3ae4d1e0586a)
 
 - Test para conversar con una 'famos@' (/date)
-- ![image](https://github.com/user-attachments/assets/be8b93ee-17b5-40ae-9ac9-2011e19475a8)
+
+![image](https://github.com/user-attachments/assets/be8b93ee-17b5-40ae-9ac9-2011e19475a8)
 
 ## Versionado 📌
 
