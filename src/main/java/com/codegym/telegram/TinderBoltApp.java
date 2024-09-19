@@ -6,8 +6,8 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class TinderBoltApp extends SimpleTelegramBot {
 
-    public static final String TELEGRAM_BOT_TOKEN = "7345872590:AAGsU9Gpicz3SDAaswObY_OChJLzOHkNtqs"; //TODO: añadir el token del bot entre comillas
-    public static final String OPEN_AI_TOKEN = "gpt:yeSMIRCC7ePMWDmNqAy9JFkblB3T8MQ6g521gef0dCT5qsls"; //TODO: añadir el token de ChatGPT entre comillas
+    public static final String TELEGRAM_BOT_TOKEN = "KEY"; //TODO: añadir el token del bot entre comillas
+    public static final String OPEN_AI_TOKEN = "TOKEN"; //TODO: añadir el token de ChatGPT entre comillas
 
     private ChatGPTService chatGPT = new ChatGPTService(OPEN_AI_TOKEN);
     private DialogMode mode;
