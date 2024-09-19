@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class TinderBoltApp extends SimpleTelegramBot {
 
     public static final String TELEGRAM_BOT_TOKEN = "TOKEN"; //TODO: añadir el token del bot entre comillas
-    public static final String OPEN_AI_TOKEN = "TKEN"; //TODO: añadir el token de ChatGPT entre comillas
+    public static final String OPEN_AI_TOKEN = "TOKEN"; //TODO: añadir el token de ChatGPT entre comillas
 
     private ChatGPTService chatGPT = new ChatGPTService(OPEN_AI_TOKEN);
     private DialogMode mode;
@@ -107,6 +107,82 @@ public class TinderBoltApp extends SimpleTelegramBot {
         list.add(text);
     }
 
+    public void profileCommand(){
+        mode = DialogMode.PROFILE;
+        String text = loadMessage("profile");
+        sendPhotoMessage("profile");
+        sendTextMessage(text);
+        sendTextMessage("Ingresa tu nombre: ");
+        user = new UserInfo();
+        questionCount = 0;
+    }
+
+    private UserInfo user = new UserInfo();
+    private int questionCount = 0;
+
+    public void profileDialog(){
+        String text = getMessageText();
+        questionCount++;
+        if(questionCount == 1){
+            user.name = text;
+            sendTextMessage("Tu edad: ");
+        }
+        else if(questionCount == 2){
+            user.age = text;
+            sendTextMessage("Tu actividad en tiempo libre: ");
+        }
+        else if(questionCount == 3){
+            user.hobby = text;
+            sendTextMessage("Tu objetivo para interactuar con esta persona: ");
+        }
+        else if(questionCount == 4){
+            user.goals = text;
+
+            String prompt = loadPrompt("profile");
+            String userInfo = user.toString();
+            var myMessage = sendTextMessage("Chat GPT is typing...");
+            String answer = chatGPT.sendMessage(prompt, userInfo);
+            updateTextMessage(myMessage, answer);
+        }
+    }
+
+    public void openerCommand(){
+        mode = DialogMode.OPENER;
+        String text = loadMessage("opener");
+        sendPhotoMessage("opener");
+        sendTextMessage(text);
+        sendTextMessage("Ingresa su nombre: ");
+
+        user = new UserInfo();
+        questionCount = 0;
+    }
+
+    public void openerDialog(){
+        String text = getMessageText();
+        questionCount++;
+        if(questionCount == 1){
+            user.name = text;
+            sendTextMessage("Su edad: ");
+        }
+        else if(questionCount == 2){
+            user.age = text;
+            sendTextMessage("En que trabaja: ");
+        }
+        else if(questionCount == 3){
+            user.occupation = text;
+            sendTextMessage("En la escala de 1 a 10, que tan atractiva es la persona: ");
+        }
+        else if(questionCount == 4){
+            user.handsome = text;
+
+            String prompt = loadPrompt("opener");
+            String userInfo = user.toString();
+            var myMessage = sendTextMessage("Chat GPT is typing...");
+            String answer = chatGPT.sendMessage(prompt, userInfo);
+            updateTextMessage(myMessage, answer);
+        }
+    }
+
     // respuestas de bot
     public void hello(){
         if (mode == DialogMode.GPT){
@@ -116,6 +192,12 @@ public class TinderBoltApp extends SimpleTelegramBot {
         }
         else if(mode == DialogMode.MESSAGE){
             messageDialog();
+        }
+        else if(mode == DialogMode.PROFILE){
+            profileDialog();
+        }
+        else if(mode == DialogMode.OPENER){
+            openerDialog();
         }
         else{
             String text = getMessageText();
@@ -149,6 +231,8 @@ public class TinderBoltApp extends SimpleTelegramBot {
         addCommandHandler("gpt", this::gptCommand);
         addCommandHandler("date", this::dateCommand);
         addCommandHandler("message", this::messageCommand);
+        addCommandHandler("profile", this::profileCommand);
+        addCommandHandler("opener", this::openerCommand);
         addMessageHandler(this::hello);
         //addButtonHandler("^.*", this::helloButton);
         addButtonHandler("date_.*", this::dateButton);
